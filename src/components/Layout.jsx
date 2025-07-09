@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Title from './Title'
 import Settings from './Settings'
+import PlayArea from './PlayArea'
 
 const Layout = () => {
     const [settings, setSettings] = useState({
@@ -22,8 +23,8 @@ const Layout = () => {
                 <Title />
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />
             </div>
-            <div className=" bg-green-100 flex-2/5">
-                d
+            <div className="px-8 lg:px-0 flex-2/5">
+                <PlayArea />
             </div>
             <div className="bg-purple-500 flex-1/4">
                 d
