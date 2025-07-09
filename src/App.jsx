@@ -1,11 +1,10 @@
-import React from 'react'
-import Title from './components/Title'
 import Footer from './components/footer'
+import Layout from './components/Layout'
 
 const App = () => {
   return (
-    <div>
-      <Title />
+    <div className='h-fit lg:h-screen'>
+      <Layout />
       <Footer />
     </div>
   )
