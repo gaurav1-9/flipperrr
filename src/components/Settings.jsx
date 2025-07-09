@@ -5,7 +5,7 @@ const Settings = ({ settings, setSettings, generatingGame, startGame }) => {
 
             <div className='w-full mt-5'>
                 <p className='text-lg text-start mb-2'>select theme</p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 md:gap-6 lg:gap-2">
                     <div
                         className={`w-1/2 flex justify-center items-center
                          ${(settings.theme === 0)
@@ -38,7 +38,7 @@ const Settings = ({ settings, setSettings, generatingGame, startGame }) => {
 
             <div className='w-full mt-5'>
                 <p className='text-lg text-start mb-2'>select grid</p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 md:gap-6 lg:gap-2">
                     <div
                         className={`w-1/2 flex justify-center items-center
                          ${(settings.grid === 0)
