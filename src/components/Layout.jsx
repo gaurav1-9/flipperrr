@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Title from './Title'
 import Settings from './Settings'
 import PlayArea from './PlayArea'
+import Stats from './Stats'
+import { useStopwatch } from 'react-timer-hook'
 
 const Layout = () => {
     const [settings, setSettings] = useState({
@@ -17,6 +19,12 @@ const Layout = () => {
         }, 5000);
         console.log(settings)
     }
+
+    const stopwatch = useStopwatch({ autoStart: true })
+    const minutes = stopwatch.minutes < 10 ? `0${stopwatch.minutes}` : `${stopwatch.minutes}`
+    const seconds = stopwatch.seconds < 10 ? `0${stopwatch.seconds}` : `${stopwatch.seconds}`
+    const [moves, setMoves] = useState(0)
+    const formattedMoves = moves < 10 ? `0${moves}` : `${moves}`
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4'>
             <div className="px-8 lg:pl-15 xl:pl-25 lg:pr-0 flex-1/4">
@@ -24,10 +32,10 @@ const Layout = () => {
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />
             </div>
             <div className="px-8 lg:px-0 flex-2/5">
-                <PlayArea />
+                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} />
             </div>
-            <div className="bg-purple-500 flex-1/4">
-                d
+            <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4">
+                <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} />
             </div>
         </div>
     )
