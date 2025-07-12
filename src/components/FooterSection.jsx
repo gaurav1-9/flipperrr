@@ -3,11 +3,11 @@ import { FaRegCopyright, FaInstagram, FaGithub, FaLinkedin } from "react-icons/f
 import { TbWorld } from "react-icons/tb";
 import { FcLike } from "react-icons/fc";
 
-const Footer = () => {
+const FooterSection = () => {
     const currentYear = new Date().getFullYear()
     const devYear = 2025
     return (
-        <div className='text-butterscotch flex flex-col lg:flex-row items-center font-montserratAlt justify-center w-full gap-4 lg:absolute lg:bottom-1'>
+        <div className='text-butterscotch flex flex-col lg:flex-row items-center font-montserratAlt justify-center w-full gap-4 lg:absolute lg:bottom-0 min-[1500px]:absolute'>
             <div className='flex items-center gap-1 text-lg leading-0 lg:text-lg'>
                 <FaRegCopyright />
                 <p>{`${(devYear === currentYear) ? devYear : `${devYear} - ${currentYear}`}`}</p>
@@ -56,4 +56,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default FooterSection
