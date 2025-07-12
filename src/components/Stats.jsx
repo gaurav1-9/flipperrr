@@ -5,8 +5,8 @@ import GameStat from './GameStat'
 const Stats = ({ minutes, seconds, formattedMoves, statistics }) => {
 
   return (
-    <div className="w-full h-fit px-3 text-butterscotch flex flex-col justify-center items-start font-montserratAlt font-semibold">
-      <div className="hidden lg:flex flex-col">
+    <div className="w-full h-fit text-butterscotch flex flex-col justify-center items-start font-montserratAlt font-semibold">
+      <div className="hidden lg:flex flex-col w-full">
         <Timer minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} />
         <div className="w-full h-1 bg-butterscotch/30 my-5"></div>
       </div>

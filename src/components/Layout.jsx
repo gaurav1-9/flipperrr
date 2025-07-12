@@ -26,14 +26,14 @@ const Layout = () => {
     const [moves, setMoves] = useState(0)
     const formattedMoves = moves < 10 ? `0${moves}` : `${moves}`
     const [statistics, setStatistics] = useState([
-        {
-            time:{
-                min:'01',
-                sec: '03'
-            },
-            moves:5,
-            grid: 0
-        },
+        // {
+        //     time:{
+        //         min:'01',
+        //         sec: '03'
+        //     },
+        //     moves:5,
+        //     grid: 0
+        // },
     ])
 
     return (

@@ -4,7 +4,7 @@ const Timer = ({ minutes, seconds, formattedMoves }) => {
     return (
         <div className='w-full'>
             <div className={`flex flex-wrap justify-between lg:flex-col`}>
-                <div className="flex gap-3 justify-center items-center">
+                <div className="flex gap-3 justify-start items-center">
                     <p className={`text-base md:text-lg lg:text-3xl `}>timer:</p>
                     <div className="flex gap-1">
                         <p className='text-xs md:text-base lg:text-3xl rounded-md bg-eerieBlack w-8 lg:w-10 aspect-square flex justify-center items-center'>{minutes[0]}</p>
