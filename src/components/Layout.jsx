@@ -25,6 +25,49 @@ const Layout = () => {
     const seconds = stopwatch.seconds < 10 ? `0${stopwatch.seconds}` : `${stopwatch.seconds}`
     const [moves, setMoves] = useState(0)
     const formattedMoves = moves < 10 ? `0${moves}` : `${moves}`
+    const [statistics, setStatistics] = useState([
+        {
+            time:{
+                min:'01',
+                sec: '03'
+            },
+            moves:5,
+            grid: 0
+        },
+        {
+            time:{
+                min:'02',
+                sec: '43'
+            },
+            moves:15,
+            grid: 1
+        },
+        {
+            time:{
+                min:'01',
+                sec: '03'
+            },
+            moves:5,
+            grid: 0
+        },
+        {
+            time:{
+                min:'02',
+                sec: '43'
+            },
+            moves:15,
+            grid: 1
+        },
+        {
+            time:{
+                min:'02',
+                sec: '43'
+            },
+            moves:15,
+            grid: 1
+        },
+    ])
+
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4'>
             <div className="px-8 lg:pl-15 xl:pl-25 lg:pr-0 flex-1/4">
@@ -34,8 +77,8 @@ const Layout = () => {
             <div className="px-8 lg:px-0 flex-2/5">
                 <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} />
             </div>
-            <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4">
-                <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} />
+            <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4 mb-5 lg:mb-0">
+                <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics}/>
             </div>
         </div>
     )
