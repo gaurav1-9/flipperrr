@@ -1,7 +1,7 @@
 # flipperrr 
 A web-based memory card game where players flip cards to find matching pairs.
 
-🔗[flipperrr - Live Link]()\
+🔗[flipperrr - Live Link](https://flipperrr.vercel.app/)\
 🖌️[view Figma design here](https://www.figma.com/design/DRM9wkfGjcdpfDdZA6n20z/Memory-Card-Game---UM-Project?node-id=0-1&p=f&t=mAhtvJhrV3LqBeYr-0)
 
 ## 💻 Tech Stack
