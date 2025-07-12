@@ -1,6 +1,6 @@
 const Settings = ({ settings, setSettings, generatingGame, startGame }) => {
     return (
-        <div className="w-full h-fit p-3 border-4 border-dashed rounded-xl border-butterscotch text-butterscotch flex flex-col justify-center items-center font-montserratAlt font-semibold mt-5">
+        <div className="w-full h-fit p-3 border-4 border-dashed rounded-xl border-butterscotch text-butterscotch flex flex-col justify-center items-center font-montserratAlt font-semibold mt-5 lg:mt-10">
             <p className='text-2xl '>settings</p>
 
             <div className='w-full mt-5'>

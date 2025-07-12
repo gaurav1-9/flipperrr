@@ -18,7 +18,7 @@ const Layout = () => {
         console.log(settings)
     }
     return (
-        <div className='flex flex-col lg:flex-row pt-6 h-fit lg:h-full gap-4'>
+        <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4'>
             <div className="px-8 lg:pl-15 xl:pl-25 lg:pr-0 flex-1/4">
                 <Title />
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />

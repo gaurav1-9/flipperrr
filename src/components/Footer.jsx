@@ -7,7 +7,7 @@ const Footer = () => {
     const currentYear = new Date().getFullYear()
     const devYear = 2025
     return (
-        <div className='text-butterscotch flex flex-col lg:flex-row items-center font-montserratAlt justify-center w-full gap-4'>
+        <div className='text-butterscotch flex flex-col lg:flex-row items-center font-montserratAlt justify-center w-full gap-4 lg:absolute lg:bottom-1'>
             <div className='flex items-center gap-1 text-lg leading-0 lg:text-lg'>
                 <FaRegCopyright />
                 <p>{`${(devYear === currentYear) ? devYear : `${devYear} - ${currentYear}`}`}</p>
