@@ -34,38 +34,6 @@ const Layout = () => {
             moves:5,
             grid: 0
         },
-        {
-            time:{
-                min:'02',
-                sec: '43'
-            },
-            moves:15,
-            grid: 1
-        },
-        {
-            time:{
-                min:'01',
-                sec: '03'
-            },
-            moves:5,
-            grid: 0
-        },
-        {
-            time:{
-                min:'02',
-                sec: '43'
-            },
-            moves:15,
-            grid: 1
-        },
-        {
-            time:{
-                min:'02',
-                sec: '43'
-            },
-            moves:15,
-            grid: 1
-        },
     ])
 
     return (
