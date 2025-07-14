@@ -71,27 +71,24 @@ const Layout = () => {
     ])
 
     const startGame = () => {
+        console.log(`Previous time: ${stopwatch.minutes}:${stopwatch.seconds}`)
         setGeneratingGame(true)
+        stopwatch.pause()
         setTimeout(() => {
             if (playAreaRef.current) {
                 playAreaRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                // console.log(playAreaRef.current)
             }
         }, 10);
         setTimeout(() => {
             cardSetter()
             setGeneratingGame(false)
-            stopwatch.start()
+            stopwatch.reset(new Date(0), true)
         }, 5000);
         console.log(settings)
     }
-    useEffect(() => {
-        console.log("CardSet updated:", cardSet)
-    }, [cardSet])
-
-
+    
     return (
-        <div className='flex flex-col lg:flex-row pt-6 h-fit gap-6'>
+        <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4 lg:gap-6'>
             <div className="px-8 lg:pl-15 xl:pl-25 lg:pr-0 flex-1/4">
                 <Title />
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />

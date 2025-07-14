@@ -16,19 +16,23 @@ const PlayArea = ({ minutes, seconds, formattedMoves, cardSet, generatingGame })
             ? <GameTimer />
             : (!cardSet.length)
               ? <PlayAreaMsg />
-              : <>
-                <div className={`flex flex-wrap ${(cardSet.length === 36) ? 'gap-8' : 'gap-20'} justify-center`}>
+              : <div className='w-full h-full flex justify-center items-center'>
+                <div className={`grid ${(cardSet.length === 36) ? 'grid-cols-6 grid-rows-6 gap-3 md:gap-5' : 'grid-cols-4 grid-rows-4 gap-8 md:gap-16'}`}>
                   {
                     (cardSet)
                       ? cardSet.map((card, i) => (
-                        (typeof (card.value) === 'number')
-                          ? <div className='text-6xl flex'>{(parseInt(card.value) < 10) ? `0${card.value}` : card.value}</div>
-                          : <div className='text-6xl flex'>{card.value}</div>
+                        <div className='flex justify-center items-center'>
+                          {
+                            (typeof (card.value) === 'number')
+                              ? <p className='text-4xl'>{(parseInt(card.value) < 10) ? `0${card.value}` : card.value}</p>
+                              : <p className='text-4xl'>{card.value}</p>
+                          }
+                        </div>
                       ))
                       : null
                   }
                 </div>
-              </>
+              </div>
         }
       </div>
     </div>
