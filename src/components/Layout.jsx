@@ -4,12 +4,27 @@ import Settings from './Settings'
 import PlayArea from './PlayArea'
 import Stats from './Stats'
 import { useStopwatch } from 'react-timer-hook'
+import { GiWaveSurfer, GiCamelHead, GiCirclingFish, GiCutLemon, GiGlassCelebration, GiKoala, GiPartyPopper, GiSadCrab, GiTreeBranch } from "react-icons/gi";
+import { BiSolidCookie, BiMeteor, BiSolidCat, BiSolidInvader, BiSolidYinYang, BiSolidZap, BiWind, BiSolidMagicWand, BiFingerprint } from "react-icons/bi";
 
 const Layout = () => {
     const [settings, setSettings] = useState({
         theme: 0,
         grid: 0
     })
+    const availableIcons = [
+        <GiWaveSurfer />, <GiCamelHead />,
+        <GiCirclingFish />, <GiCutLemon />,
+        <GiGlassCelebration />, <GiKoala />,
+        <GiPartyPopper />, <GiSadCrab />,
+        <GiTreeBranch />, <BiSolidCookie />,
+        <BiMeteor />, <BiSolidCat />,
+        <BiSolidInvader />, <BiSolidYinYang />,
+        <BiSolidZap />, <BiWind />,
+        <BiSolidMagicWand />, <BiFingerprint />,
+    ]
+    const availableNumbers = [19, 11, 1, 3, 5, 2, 45, 32, 54, 8, 41, 7, 25, 50, 99, 67, 83, 4]
+    const [iconSet, setIconSet] = useState([])
     const [generatingGame, setGeneratingGame] = useState(false)
     const startGame = () => {
         setGeneratingGame(true)
@@ -46,7 +61,7 @@ const Layout = () => {
                 <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} />
             </div>
             <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4 mb-5 lg:mb-0">
-                <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics}/>
+                <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics} />
             </div>
         </div>
     )
