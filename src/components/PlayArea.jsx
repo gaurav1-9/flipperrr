@@ -39,7 +39,7 @@ const PlayArea = ({ minutes, seconds, formattedMoves, cardSet, generatingGame })
                               : <p
                                 className={
                                   (cardSet.length === 16)
-                                    ? `text-4xl md:text-6xl`
+                                    ? `text-4xl md:text-7xl`
                                     : `text-2xl md:text-5xl`
                                 }
                               >
