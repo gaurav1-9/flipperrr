@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Title from './Title'
 import Settings from './Settings'
 import PlayArea from './PlayArea'
@@ -12,6 +12,7 @@ const Layout = () => {
         theme: 0,
         grid: 0
     })
+    const playAreaRef = useRef(null)
     const availableIcons = [
         <GiWaveSurfer />, <GiCamelHead />,
         <GiCirclingFish />, <GiCutLemon />,
@@ -53,7 +54,7 @@ const Layout = () => {
         }
     }
 
-    const stopwatch = useStopwatch({ autoStart: true })
+    const stopwatch = useStopwatch({ autoStart: false })
     const minutes = stopwatch.minutes < 10 ? `0${stopwatch.minutes}` : `${stopwatch.minutes}`
     const seconds = stopwatch.seconds < 10 ? `0${stopwatch.seconds}` : `${stopwatch.seconds}`
     const [moves, setMoves] = useState(0)
@@ -71,11 +72,16 @@ const Layout = () => {
 
     const startGame = () => {
         setGeneratingGame(true)
-
-        cardSetter()
-
         setTimeout(() => {
+            if (playAreaRef.current) {
+                playAreaRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                // console.log(playAreaRef.current)
+            }
+        }, 10);
+        setTimeout(() => {
+            cardSetter()
             setGeneratingGame(false)
+            stopwatch.start()
         }, 5000);
         console.log(settings)
     }
@@ -83,15 +89,15 @@ const Layout = () => {
         console.log("CardSet updated:", cardSet)
     }, [cardSet])
 
-    
+
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-6'>
             <div className="px-8 lg:pl-15 xl:pl-25 lg:pr-0 flex-1/4">
                 <Title />
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />
             </div>
-            <div className="px-8 lg:px-0 flex-2/5">
-                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} />
+            <div ref={playAreaRef} className="scroll-mt-10 px-8 lg:px-4 flex-2/5 relative">
+                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} generatingGame={generatingGame} />
             </div>
             <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4 mb-5 lg:mb-0">
                 <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics} />
