@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Title from './Title'
 import Settings from './Settings'
 import PlayArea from './PlayArea'
@@ -86,7 +86,7 @@ const Layout = () => {
         }, 5000);
         console.log(settings)
     }
-    
+
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4 lg:gap-6'>
             <div className="px-8 lg:pl-15 xl:pl-25 lg:pr-0 flex-1/4">

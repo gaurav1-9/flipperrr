@@ -16,16 +16,35 @@ const PlayArea = ({ minutes, seconds, formattedMoves, cardSet, generatingGame })
             ? <GameTimer />
             : (!cardSet.length)
               ? <PlayAreaMsg />
-              : <div className='w-full h-full flex justify-center items-center'>
-                <div className={`grid ${(cardSet.length === 36) ? 'grid-cols-6 grid-rows-6 gap-3 md:gap-5' : 'grid-cols-4 grid-rows-4 gap-8 md:gap-16'}`}>
+              : <div className='w-full h-full flex justify-center items-center mt-5 md:mt-0'>
+                <div className={`grid ${(cardSet.length === 36) ? 'grid-cols-6 grid-rows-6 gap-2 md:gap-5' : 'grid-cols-4 grid-rows-4 gap-3 md:gap-10'}`}>
                   {
                     (cardSet)
                       ? cardSet.map((card, i) => (
-                        <div className='flex justify-center items-center'>
+                        <div
+                          key={i}
+                          className={`flex justify-center items-center bg-eerieBlack p-2 md:p-3 aspect-square rounded-lg hover:bg-butterscotch/10 cursor-pointer`}
+                        >
                           {
                             (typeof (card.value) === 'number')
-                              ? <p className='text-4xl'>{(parseInt(card.value) < 10) ? `0${card.value}` : card.value}</p>
-                              : <p className='text-4xl'>{card.value}</p>
+                              ? <p
+                                className={
+                                  (cardSet.length === 16)
+                                    ? `text-4xl md:text-6xl`
+                                    : `text-xl md:text-4xl`
+                                }
+                              >
+                                {(parseInt(card.value) < 10) ? `0${card.value}` : card.value}
+                              </p>
+                              : <p
+                                className={
+                                  (cardSet.length === 16)
+                                    ? `text-4xl md:text-6xl`
+                                    : `text-2xl md:text-5xl`
+                                }
+                              >
+                                {card.value}
+                              </p>
                           }
                         </div>
                       ))
