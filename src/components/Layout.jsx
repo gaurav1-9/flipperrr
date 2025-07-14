@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Title from './Title'
 import Settings from './Settings'
 import PlayArea from './PlayArea'
@@ -24,15 +24,33 @@ const Layout = () => {
         <BiSolidMagicWand />, <BiFingerprint />,
     ]
     const availableNumbers = [19, 11, 1, 3, 5, 2, 45, 32, 54, 8, 41, 7, 25, 50, 99, 67, 83, 4]
-    const [iconSet, setIconSet] = useState([])
+    const [cardSet, setCardSet] = useState([])
     const [generatingGame, setGeneratingGame] = useState(false)
-    const startGame = () => {
-        setGeneratingGame(true)
 
-        setTimeout(() => {
-            setGeneratingGame(false)
-        }, 5000);
-        console.log(settings)
+    const cardSetter = () => {
+        const cardPairs = (settings.grid === 0) ? 8 : 18
+        if (settings.theme === 0) {
+            const fullShuffledNumbers = [...availableNumbers].sort(() => Math.random() - 0.5)
+            const selectedNumbers = fullShuffledNumbers.slice(0, cardPairs)
+            const duplicatedNumber = [...selectedNumbers, ...selectedNumbers].map((value, idx) => ({
+                id: idx,
+                value,
+                isFlipped: false,
+                isMatched: false,
+            }))
+            setCardSet(duplicatedNumber.sort(() => Math.random() - 0.5))
+        }
+        else {
+            const fullShuffledIcons = [...availableIcons].sort(() => Math.random() - 0.5)
+            const selectedIcons = fullShuffledIcons.slice(0, cardPairs)
+            const duplicateIcons = [...selectedIcons, ...selectedIcons].map((value, idx) => ({
+                id: idx,
+                value,
+                isFlipped: false,
+                isMatched: false,
+            }))
+            setCardSet(duplicateIcons.sort(() => Math.random() - 0.5))
+        }
     }
 
     const stopwatch = useStopwatch({ autoStart: true })
@@ -51,6 +69,21 @@ const Layout = () => {
         // },
     ])
 
+    const startGame = () => {
+        setGeneratingGame(true)
+
+        cardSetter()
+
+        setTimeout(() => {
+            setGeneratingGame(false)
+        }, 5000);
+        console.log(settings)
+    }
+    useEffect(() => {
+        console.log("CardSet updated:", cardSet)
+    }, [cardSet])
+
+    
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-6'>
             <div className="px-8 lg:pl-15 xl:pl-25 lg:pr-0 flex-1/4">
@@ -58,7 +91,7 @@ const Layout = () => {
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />
             </div>
             <div className="px-8 lg:px-0 flex-2/5">
-                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} />
+                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} />
             </div>
             <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4 mb-5 lg:mb-0">
                 <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics} />
