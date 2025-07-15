@@ -5,12 +5,12 @@ import PlayAreaMsg from './PlayAreaMsg'
 import Cards from './Cards'
 import { HiOutlineLightBulb } from "react-icons/hi";
 
-const PlayArea = ({ minutes, seconds, formattedMoves, cardSet, generatingGame, setClickCards, clickCards, iconMap, setCardSet, hint, showHint }) => {
+const PlayArea = ({ minutes, seconds, formattedMoves, cardSet, generatingGame, setClickCards, clickCards, iconMap, setCardSet, hint, showHint, gameComplete }) => {
   return (
     <div className='relative border-butterscotch w-full h-fit md:aspect-square p-4 border-4 rounded-lg text-butterscotch font-montserratAlt flex flex-col justify-start items-center font-semibold'>
       <p className='text-2xl text-start mb-2'>play area</p>
       <div
-        className={`bg-eerieBlack absolute top-24 md:top-4 right-0.5 md:right-4 flex-row w-fit justify-center items-center px-4 py-2 md:py-1 rounded-md gap-1 md:gap-1.5 hover:bg-eerieBlack/60 cursor-pointer ${(!showHint.visibility && cardSet.length)
+        className={`bg-eerieBlack absolute top-24 md:top-4 right-0.5 md:right-4 flex-row w-fit justify-center items-center px-4 py-2 md:py-1 rounded-md gap-1 md:gap-1.5 hover:bg-eerieBlack/60 cursor-pointer ${(!showHint.visibility && cardSet.length && !gameComplete)
           ? 'flex'
           : 'hidden'
           } scale-75 md:scale-100`}

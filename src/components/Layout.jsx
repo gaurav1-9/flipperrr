@@ -6,6 +6,7 @@ import Stats from './Stats'
 import { useStopwatch } from 'react-timer-hook'
 import { GiWaveSurfer, GiCamelHead, GiCirclingFish, GiCutLemon, GiGlassCelebration, GiKoala, GiPartyPopper, GiSadCrab, GiTreeBranch } from "react-icons/gi";
 import { BiSolidCookie, BiMeteor, BiSolidCat, BiSolidInvader, BiSolidYinYang, BiSolidZap, BiWind, BiSolidMagicWand, BiFingerprint } from "react-icons/bi";
+import ConfettiExplosion from 'react-confetti-explosion'
 
 const Layout = () => {
     const [settings, setSettings] = useState({
@@ -43,7 +44,7 @@ const Layout = () => {
     const availableNumbers = [19, 11, 1, 3, 5, 2, 45, 32, 54, 8, 41, 7, 25, 50, 99, 67, 83, 4]
     const [cardSet, setCardSet] = useState([])
     const [generatingGame, setGeneratingGame] = useState(false)
-
+    const [gameComplete, setGameComplete] = useState(false)
     const cardSetter = () => {
         const cardPairs = (settings.grid === 0) ? 8 : 18
         if (settings.theme === 0) {
@@ -83,6 +84,7 @@ const Layout = () => {
     const startGame = () => {
         setGeneratingGame(true)
         setMatched(0)
+        setGameComplete(false)
         setShowHint({
             visibility: true,
             content: `hint`,
@@ -201,7 +203,7 @@ const Layout = () => {
             moves: moves,
             grid: settings.grid
         }
-        console.log(stat)
+        setGameComplete(true)
         stopwatch.reset(0, false)
         setMoves(0)
         setStatistics((prev) => ([
@@ -212,7 +214,6 @@ const Layout = () => {
 
     useEffect(() => {
         if (cardSet.length) {
-            console.log(matched)
             if (matched === (cardSet.length / 2)) winCondition()
         }
     }, [matched])
@@ -224,7 +225,10 @@ const Layout = () => {
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />
             </div>
             <div ref={playAreaRef} className="scroll-mt-10 px-8 lg:px-4 flex-2/5 relative">
-                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} setCardSet={setCardSet} generatingGame={generatingGame} setClickCards={setClickCards} clickCards={clickCards} iconMap={iconMap} hint={hint} showHint={showHint} />
+                <div className='translate-x-1/2 left-1/2'>
+                    {gameComplete && <ConfettiExplosion />}
+                </div>
+                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} setCardSet={setCardSet} generatingGame={generatingGame} setClickCards={setClickCards} clickCards={clickCards} iconMap={iconMap} hint={hint} showHint={showHint} gameComplete={gameComplete}/>
             </div>
             <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4 mb-5 lg:mb-0">
                 <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics} />
