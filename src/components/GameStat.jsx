@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GameStat = ({statistics}) => {
+const GameStat = ({ statistics }) => {
     return (
         <>
             {
@@ -8,7 +8,16 @@ const GameStat = ({statistics}) => {
                     <div key={idx} className="flex bg-eerieBlack p-3 px-4 rounded-lg justify-between items-center">
                         <div className="flex flex-col">
                             <p className='flex gap-1.5 items-center'>
-                                <span className='text-xl'>{`${stat.time.min}:${stat.time.sec}`}</span>
+                                <span className='text-xl'>
+                                    {`${(stat.time.min < 10)
+                                        ? `0${stat.time.min}`
+                                        : stat.time.min
+                                        } : ${(stat.time.sec < 10)
+                                            ? `0${stat.time.sec}`
+                                            : stat.time.sec
+                                        }`
+                                    }
+                                </span>
                                 <span className='font-light pt-0.5'>seconds</span>
                             </p>
                             <p className='flex gap-1.5 items-center'>

@@ -75,21 +75,14 @@ const Layout = () => {
     const seconds = stopwatch.seconds < 10 ? `0${stopwatch.seconds}` : `${stopwatch.seconds}`
     const [moves, setMoves] = useState(0)
     const formattedMoves = moves < 10 ? `0${moves}` : `${moves}`
-    const [statistics, setStatistics] = useState([
-        // {
-        //     time:{
-        //         min:'01',
-        //         sec: '03'
-        //     },
-        //     moves:5,
-        //     grid: 0
-        // },
-    ])
+    const [statistics, setStatistics] = useState([])
 
     const [showHint, setShowHint] = useState({})
+    const [matched, setMatched] = useState(0)
 
     const startGame = () => {
         setGeneratingGame(true)
+        setMatched(0)
         setShowHint({
             visibility: true,
             content: `hint`,
@@ -126,6 +119,7 @@ const Layout = () => {
                             : card
                     )
                 );
+                setMatched(matched + 1)
             }
             else {
                 setTimeout(() => {
@@ -197,6 +191,31 @@ const Layout = () => {
         }
         else return
     }, [hintTimer])
+
+    const winCondition = () => {
+        let stat = {
+            time: {
+                min: stopwatch.minutes,
+                sec: stopwatch.seconds
+            },
+            moves: moves,
+            grid: settings.grid
+        }
+        console.log(stat)
+        stopwatch.reset(0, false)
+        setMoves(0)
+        setStatistics((prev) => ([
+            ...prev,
+            stat
+        ]))
+    }
+
+    useEffect(() => {
+        if (cardSet.length) {
+            console.log(matched)
+            if (matched === (cardSet.length / 2)) winCondition()
+        }
+    }, [matched])
 
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4 lg:gap-6'>
