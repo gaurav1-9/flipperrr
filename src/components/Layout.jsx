@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Title from './Title'
 import Settings from './Settings'
 import PlayArea from './PlayArea'
@@ -13,17 +13,33 @@ const Layout = () => {
         grid: 0
     })
     const playAreaRef = useRef(null)
+    const iconMap = {
+        GiWaveSurfer: <GiWaveSurfer />,
+        GiCamelHead: <GiCamelHead />,
+        GiCirclingFish: <GiCirclingFish />,
+        GiCutLemon: <GiCutLemon />,
+        GiGlassCelebration: <GiGlassCelebration />,
+        GiKoala: <GiKoala />,
+        GiPartyPopper: <GiPartyPopper />,
+        GiSadCrab: <GiSadCrab />,
+        GiTreeBranch: <GiTreeBranch />,
+        BiSolidCookie: <BiSolidCookie />,
+        BiMeteor: <BiMeteor />,
+        BiSolidCat: <BiSolidCat />,
+        BiSolidInvader: <BiSolidInvader />,
+        BiSolidYinYang: <BiSolidYinYang />,
+        BiSolidZap: <BiSolidZap />,
+        BiWind: <BiWind />,
+        BiSolidMagicWand: <BiSolidMagicWand />,
+        BiFingerprint: <BiFingerprint />
+    };
     const availableIcons = [
-        <GiWaveSurfer />, <GiCamelHead />,
-        <GiCirclingFish />, <GiCutLemon />,
-        <GiGlassCelebration />, <GiKoala />,
-        <GiPartyPopper />, <GiSadCrab />,
-        <GiTreeBranch />, <BiSolidCookie />,
-        <BiMeteor />, <BiSolidCat />,
-        <BiSolidInvader />, <BiSolidYinYang />,
-        <BiSolidZap />, <BiWind />,
-        <BiSolidMagicWand />, <BiFingerprint />,
-    ]
+        'GiWaveSurfer', 'GiCamelHead', 'GiCirclingFish', 'GiCutLemon',
+        'GiGlassCelebration', 'GiKoala', 'GiPartyPopper', 'GiSadCrab',
+        'GiTreeBranch', 'BiSolidCookie', 'BiMeteor', 'BiSolidCat',
+        'BiSolidInvader', 'BiSolidYinYang', 'BiSolidZap', 'BiWind',
+        'BiSolidMagicWand', 'BiFingerprint'
+    ];
     const availableNumbers = [19, 11, 1, 3, 5, 2, 45, 32, 54, 8, 41, 7, 25, 50, 99, 67, 83, 4]
     const [cardSet, setCardSet] = useState([])
     const [generatingGame, setGeneratingGame] = useState(false)
@@ -46,7 +62,7 @@ const Layout = () => {
             const selectedIcons = fullShuffledIcons.slice(0, cardPairs)
             const duplicateIcons = [...selectedIcons, ...selectedIcons].map((value, idx) => ({
                 id: idx,
-                value,
+                value: value,
                 isFlipped: false,
                 isMatched: false,
             }))
@@ -71,7 +87,6 @@ const Layout = () => {
     ])
 
     const startGame = () => {
-        console.log(`Previous time: ${stopwatch.minutes}:${stopwatch.seconds}`)
         setGeneratingGame(true)
         stopwatch.pause()
         setTimeout(() => {
@@ -83,9 +98,44 @@ const Layout = () => {
             cardSetter()
             setGeneratingGame(false)
             stopwatch.reset(new Date(0), true)
+            setMoves(0)
         }, 5000);
-        console.log(settings)
     }
+
+    const [clickCards, setClickCards] = useState([])
+    const gameLogic = () => {
+        if (clickCards.length === 2) {
+            const [firstCard, secondCard] = clickCards
+            if (firstCard.value === secondCard.value && firstCard.id !== secondCard.id ) {
+                setCardSet((prevCards) =>
+                    prevCards.map((card) =>
+                        card.id === firstCard.id || card.id === secondCard.id
+                            ? { ...card, isMatched: true }
+                            : card
+                    )
+                );
+            }
+            else {
+                setTimeout(() => {
+                    setCardSet((prevCards) =>
+                        prevCards.map((card) =>
+                            card.id === firstCard.id || card.id === secondCard.id
+                                ? { ...card, isFlipped: false }
+                                : card
+                        )
+                    );
+                }, 500);
+            }
+            setMoves(moves+1)
+            setClickCards([])
+        }
+    }
+
+    useEffect(() => {
+        if (clickCards.length > 0)
+            gameLogic()
+        console.log(clickCards)
+    }, [clickCards])
 
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4 lg:gap-6'>
@@ -94,7 +144,7 @@ const Layout = () => {
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />
             </div>
             <div ref={playAreaRef} className="scroll-mt-10 px-8 lg:px-4 flex-2/5 relative">
-                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} generatingGame={generatingGame} />
+                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} setCardSet={setCardSet} generatingGame={generatingGame}  setClickCards={setClickCards} clickCards={clickCards} iconMap={iconMap} />
             </div>
             <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4 mb-5 lg:mb-0">
                 <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics} />
