@@ -86,8 +86,15 @@ const Layout = () => {
         // },
     ])
 
+    const [showHint, setShowHint] = useState({})
+
     const startGame = () => {
         setGeneratingGame(true)
+        setShowHint({
+            visibility: true,
+            content: `hint`,
+            subContent: `3 sec`
+        })
         stopwatch.pause()
         setTimeout(() => {
             if (playAreaRef.current) {
@@ -99,6 +106,11 @@ const Layout = () => {
             setGeneratingGame(false)
             stopwatch.reset(new Date(0), true)
             setMoves(0)
+            setShowHint({
+                visibility: false,
+                content: `hint`,
+                subContent: `5 sec`
+            })
         }, 5000);
     }
 
@@ -135,13 +147,56 @@ const Layout = () => {
         if (clickCards.length > 0)
             gameLogic()
     }, [clickCards])
-    const [showHint, setShowHint] = useState({
-        visibility: false,
-        content: 'hint'
-    })
+
+    const [hintTimer, setHintTimer] = useState(null)
     const hint = () => {
-        console.log("hint")
+        stopwatch.pause()
+        setShowHint({
+            visibility: false,
+            content: '5'
+        });
+        setHintTimer(5)
+        setCardSet((prevCards) =>
+            prevCards.map((card) => ({
+                ...card,
+                isFlipped: true
+            }))
+        )
+        setTimeout(() => {
+            setShowHint((prev) => (
+                {
+                    ...prev,
+                    visibility: true
+                }
+            ))
+            setCardSet((prevCards) =>
+                prevCards.map((card) => {
+                    if (card.isMatched) return card
+                    else return {
+                        ...card,
+                        isFlipped: false
+                    }
+                })
+            )
+            stopwatch.start()
+        }, 5000);
     }
+    useEffect(() => {
+        if (hintTimer > 0) {
+            const timer = setTimeout(() => {
+                let count = hintTimer - 1
+                setHintTimer(count)
+                setShowHint((prev) => ({
+                    ...prev,
+                    content: count,
+                    subContent: null
+                }))
+            }, 1000)
+
+            return () => clearTimeout(timer)
+        }
+        else return
+    }, [hintTimer])
 
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4 lg:gap-6'>
