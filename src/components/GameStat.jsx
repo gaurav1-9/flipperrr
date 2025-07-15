@@ -30,6 +30,16 @@ const GameStat = ({ statistics }) => {
                                 </span>
                                 <span className='font-light pt-0.5'>moves</span>
                             </p>
+                            <p className='flex gap-1.5 items-center'>
+                                <span className='text-xl'>
+                                    {
+                                        (stat.theme === 0)
+                                            ? 'numbered'
+                                            : 'icons'
+                                    }
+                                </span>
+                                <span className='font-light pt-0.5'>theme</span>
+                            </p>
                         </div>
                         <div className="flex flex-col justify-center items-center">
                             <p className='text-lg'>

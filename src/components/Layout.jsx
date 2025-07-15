@@ -147,6 +147,7 @@ const Layout = () => {
     const [hintTimer, setHintTimer] = useState(null)
     const hint = () => {
         stopwatch.pause()
+        setClickCards([])
         setShowHint({
             visibility: false,
             content: '5'
@@ -201,7 +202,8 @@ const Layout = () => {
                 sec: stopwatch.seconds
             },
             moves: moves,
-            grid: settings.grid
+            grid: settings.grid,
+            theme: settings.theme
         }
         setGameComplete(true)
         stopwatch.reset(0, false)
@@ -228,7 +230,7 @@ const Layout = () => {
                 <div className='translate-x-1/2 left-1/2'>
                     {gameComplete && <ConfettiExplosion />}
                 </div>
-                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} setCardSet={setCardSet} generatingGame={generatingGame} setClickCards={setClickCards} clickCards={clickCards} iconMap={iconMap} hint={hint} showHint={showHint} gameComplete={gameComplete}/>
+                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} setCardSet={setCardSet} generatingGame={generatingGame} setClickCards={setClickCards} clickCards={clickCards} iconMap={iconMap} hint={hint} showHint={showHint} gameComplete={gameComplete} />
             </div>
             <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4 mb-5 lg:mb-0">
                 <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics} />
