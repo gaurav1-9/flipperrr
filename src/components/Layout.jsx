@@ -106,7 +106,7 @@ const Layout = () => {
     const gameLogic = () => {
         if (clickCards.length === 2) {
             const [firstCard, secondCard] = clickCards
-            if (firstCard.value === secondCard.value && firstCard.id !== secondCard.id ) {
+            if (firstCard.value === secondCard.value && firstCard.id !== secondCard.id) {
                 setCardSet((prevCards) =>
                     prevCards.map((card) =>
                         card.id === firstCard.id || card.id === secondCard.id
@@ -126,7 +126,7 @@ const Layout = () => {
                     );
                 }, 500);
             }
-            setMoves(moves+1)
+            setMoves(moves + 1)
             setClickCards([])
         }
     }
@@ -134,8 +134,14 @@ const Layout = () => {
     useEffect(() => {
         if (clickCards.length > 0)
             gameLogic()
-        console.log(clickCards)
     }, [clickCards])
+    const [showHint, setShowHint] = useState({
+        visibility: false,
+        content: 'hint'
+    })
+    const hint = () => {
+        console.log("hint")
+    }
 
     return (
         <div className='flex flex-col lg:flex-row pt-6 h-fit gap-4 lg:gap-6'>
@@ -144,7 +150,7 @@ const Layout = () => {
                 <Settings settings={settings} setSettings={setSettings} generatingGame={generatingGame} startGame={startGame} />
             </div>
             <div ref={playAreaRef} className="scroll-mt-10 px-8 lg:px-4 flex-2/5 relative">
-                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} setCardSet={setCardSet} generatingGame={generatingGame}  setClickCards={setClickCards} clickCards={clickCards} iconMap={iconMap} />
+                <PlayArea minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} cardSet={cardSet} setCardSet={setCardSet} generatingGame={generatingGame} setClickCards={setClickCards} clickCards={clickCards} iconMap={iconMap} hint={hint} showHint={showHint} />
             </div>
             <div className="px-8 lg:pr-15 xl:pr-25 lg:pl-0 flex-1/4 mb-5 lg:mb-0">
                 <Stats minutes={minutes} seconds={seconds} formattedMoves={formattedMoves} statistics={statistics} />
