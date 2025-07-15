@@ -5,10 +5,10 @@ A web-based memory card game where players flip cards to find matching pairs.
 🖌️[view Figma design here](https://www.figma.com/design/DRM9wkfGjcdpfDdZA6n20z/Memory-Card-Game---UM-Project?node-id=0-1&p=f&t=mAhtvJhrV3LqBeYr-0)
 
 ## 📸 Project Screenshots
-<img src="./SS/home.png" alt="Image 1" height="220"/>
+<img src="./SS/home.png" alt="Image 1" width="500"/>
 <p>
-<img src="./SS/inGame.png" alt="Image 1" height="109"/>
-<img src="./SS/gameStart.png" alt="Image 1" height="109"/>
+<img src="./SS/inGame.png" alt="Image 1" width="248"/>
+<img src="./SS/gameStart.png" alt="Image 1" width="248"/>
 </p>
 
 ## 💻 Tech Stack
