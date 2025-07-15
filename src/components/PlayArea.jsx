@@ -10,10 +10,10 @@ const PlayArea = ({ minutes, seconds, formattedMoves, cardSet, generatingGame, s
     <div className='relative border-butterscotch w-full h-fit md:aspect-square p-4 border-4 rounded-lg text-butterscotch font-montserratAlt flex flex-col justify-start items-center font-semibold'>
       <p className='text-2xl text-start mb-2'>play area</p>
       <div
-        className={`bg-eerieBlack absolute top-15 md:top-4 right-4 flex-col w-20 lg:w-fit lg:flex-row justify-center items-center px-4 py-1 rounded-md gap-1 lg:gap-1.5 hover:bg-eerieBlack/60 cursor-pointer ${(!showHint.visibility && cardSet.length)
+        className={`bg-eerieBlack absolute top-13 md:top-4 md:right-4 flex-col w-20 md:w-fit md:flex-row justify-center items-center px-4 py-1 rounded-md gap-1 lg:gap-1.5 hover:bg-eerieBlack/60 cursor-pointer ${(!showHint.visibility && cardSet.length)
           ? 'flex'
           : 'hidden'
-          }`}
+          } min-[375px]:scale-70 min-[375px]:right-0 md:scale-100`}
         onClick={() => { if (generatingGame === false && cardSet) hint() }}
       >
         <HiOutlineLightBulb className='text-2xl' />
